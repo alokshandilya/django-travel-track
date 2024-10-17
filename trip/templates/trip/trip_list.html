@@ -1,5 +1,15 @@
 <h1>My Trips</h1>
 
+{% if user.is_authenticated %}
+  <p>Welcome, {{ user.username }}!</p>
+  <form method="POST" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+  </form>
+{% else %}
+  <p>Please <a href="{% url 'login' %}">Login</a></p>
+{% endif %}
+
 <ul>
   {% for trip in trips %}
   <li>{{ trip.country }} | {{ trip.city }}</li>
