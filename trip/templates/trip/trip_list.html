@@ -1,17 +1,33 @@
-<h1>My Trips</h1>
+{% extends 'trip/_base.html' %}
+{% block title %}Trip List{% endblock %}
 
-{% if user.is_authenticated %}
-  <p>Welcome, {{ user.username }}!</p>
-  <form method="POST" action="{% url 'logout' %}">
-    {% csrf_token %}
-    <button type="submit">Logout</button>
-  </form>
-{% else %}
-  <p>Please <a href="{% url 'login' %}">Login</a></p>
-{% endif %}
+{%block content %}
 
-<ul>
-  {% for trip in trips %}
-  <li>{{ trip.country }} | {{ trip.city }}</li>
-  {% endfor %}
-</ul>
+<h1>Your Trips</h1>
+{% for trip in trips %}
+<div>
+  <ul>
+    <li>
+      <strong>{{ trip.country }} | {{ trip.city }}</strong>
+      <br />
+      {% if trip.start_date %}
+      <em>
+        {{ trip.start_date|date:"F jS" }}
+        {% else %}
+        TBA
+        {% endif %}
+      </em>
+      -
+      <em>
+        {% if trip.end_date %}
+        {{ trip.end_date|date:"F jS" }}
+        {% else %}
+        TBA
+        {% endif %}
+      </em>
+    </li>
+  </ul>
+</div>
+{% endfor %}
+
+{% endblock %}

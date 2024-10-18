@@ -9,6 +9,8 @@ class HomeView(TemplateView):
 
 
 def trip_list(request):
+    if not request.user.is_authenticated:
+        return render(request, "trip/index.html")
     trips = Trip.objects.filter(owner=request.user)
     context = {
         "trips": trips,

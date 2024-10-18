@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}?{% endblock %} | Trip Trak</title>
+    <!--<script src="https://cdn.tailwindcss.com"></script>-->
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="{% url 'home' %}">Trip Trak | Home</a>
+        <ul>
+          <li>My Trips</li>
+          <li>New Trip +</li>
+          <li>My Notes</li>
+          <li>New Notes +</li>
+        </ul>
+      </nav>
+      <main>
+        <div>
+          {% if user.is_authenticated %}
+          <div><em>Hi, {{ user.username }}</em></p>
+          <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+          </form>
+          {% else %}
+          <p>Please <a href="{% url 'login' %}">Login</a></p>
+          {% endif %}
+          <hr />
+        </div>
+        {% block content %}{% endblock %}
+      </main>
+      <footer>
+        <hr />
+        <p>
+          Made by <a href="https://github.com/alokshandilya"> Alok Shandilya</a>
+        </p>
+      </footer>
+    </header>
+  </body>
+</html>
