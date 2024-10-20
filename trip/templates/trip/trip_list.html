@@ -9,6 +9,7 @@
   <ul>
     <li>
       <strong>{{ trip.country }} | {{ trip.city }}</strong>
+      <a href="{% url 'trip-detail' trip.id %}">details</a>
       <br />
       {% if trip.start_date %}
       <em>

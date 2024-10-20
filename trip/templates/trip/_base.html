@@ -11,10 +11,12 @@
       <nav>
         <a href="{% url 'home' %}">Trip Trak | Home</a>
         <ul>
-          <li>My Trips</li>
-          <li>New Trip +</li>
-          <li>My Notes</li>
-          <li>New Notes +</li>
+          {% if user.is_authenticated %}
+            <li><a href="{% url 'trip-list' %}">My Trips</a></li>
+            <li><a href="{% url 'trip-create' %}">New Trip +</a></li>
+            <li>My Notes</li>
+            <li>New Notes +</li>
+          {% endif %}
         </ul>
       </nav>
       <main>

@@ -1,6 +1,20 @@
-<h1>Sign Up</h1>
-<form action={% url 'signup' %} method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Sign Up">
-</form>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link href="css/style.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    {% load tailwind_filters %}
+    <h1>Sign Up</h1>
+    <form action={% url 'signup' %} method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input type="submit" value="Sign Up">
+    </form>
+  </body>
+</html>
+

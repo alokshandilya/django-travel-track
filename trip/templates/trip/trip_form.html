@@ -1,0 +1,15 @@
+{% extends "trip/_base.html" %}
+
+{% load tailwind_filters %}
+
+{% block title %}New Trip{% endblock %}
+
+{% block content %}
+<h1>New Trip Form</h1>
+<form action="" method="post">
+  {% csrf_token %}
+  {{ form|crispy }}
+  <input type="submit" value="Create Trip">
+</form>
+
+{% endblock %}

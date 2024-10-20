@@ -1,0 +1,26 @@
+{% extends "trip/_base.html" %}
+
+{% block title %}Trip Detail{% endblock %}
+
+{% block content %}
+<h1>Trip Details</h1>
+<div>
+  <p><strong>{{ trip.country }} | {{ trip.city }}</strong></p>
+  <hr />
+  <h3>Notes:</h3>
+  <div>
+    {% for note in notes %}
+    <div>
+      <img height="250px" src="{{ note.img.url }}" alt="{{ note.title }}" />
+      <p>{{ note.name }}</p>
+      <p>Rating: {{ note.rating }}</p>
+    </div>
+    {% endfor %}
+    <a href="">
+      <div>
+        <p>New Note +</p>
+      </div>
+    </a>
+  </div>
+</div>
+{% endblock %}

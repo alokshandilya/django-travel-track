@@ -33,6 +33,7 @@ class Note(models.Model):
         on_delete=models.CASCADE,
         related_name="notes",  # access notes from trip instance (trip.notes)
     )
+    name = models.CharField(max_length=100)
     description = models.TextField()
     type = models.CharField(max_length=100, choices=EXCURSIONS)
     img = models.ImageField(upload_to="notes", blank=True, null=True)
