@@ -52,6 +52,19 @@ class TripDetailView(DetailView):
         return context
 
 
+class TripUpdateView(LoginRequiredMixin, UpdateView):
+    model = Trip
+    success_url = reverse_lazy("trip-list")
+    fields = ["city", "country", "start_date", "end_date"]
+    # template -> model_form.html -> trip_form.html
+
+
+class TripDeleteView(LoginRequiredMixin, DeleteView):
+    model = Trip
+    success_url = reverse_lazy("trip-list")
+    # template -> trip_confirm_delete.html
+
+
 class NoteDetailView(DetailView):
     model = Note
 
@@ -103,4 +116,4 @@ class NoteUpdateView(LoginRequiredMixin, UpdateView):
 class NoteDeleteView(LoginRequiredMixin, DeleteView):
     model = Note
     success_url = reverse_lazy("note-list")
-    # no template needed - send a post request to this url
+    # template -> note_confirm_delete.html

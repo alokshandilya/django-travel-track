@@ -1,0 +1,15 @@
+{% extends "trip/_base.html" %}
+
+{% block title %}Confirm Delete Trip{% endblock %}
+
+{% block content %}
+<h1>Confirm Delete Trip</h1>
+<div>
+  <p>Are you sure you want to delete trip: <strong>{{ trip.name }}</strong>?</p>
+  <form action="{% url 'trip-delete' trip.id %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Yes, Delete">
+  </form>
+  <a href="{% url 'trip-detail' trip.id %}">Cancel</a>
+</div>
+{% endblock %}

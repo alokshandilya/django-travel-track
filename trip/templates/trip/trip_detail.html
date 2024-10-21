@@ -19,12 +19,10 @@
       <div><strong>Rating: </strong>{{ note.rating }}</div>
     </div>
     {% endfor %}
-    <a href="">
-      <div>
-        <br />
-        <a href={% url 'note-create' %}>New Note +</a>
-      </div>
-    </a>
+    <div>
+      <br />
+      <a href={% url 'note-create' %}>New Note +</a>
+    </div>
   </div>
 </div>
 {% endblock %}
