@@ -1,13 +1,18 @@
-{% extends "trip/_base.html %}
+{% extends "trip/_base.html" %}
 
 {% block title %}Note Detail{% endblock %}
 
-{% block content %}"}
+{% block content %}
 <h1>Note Details</h1>
 <div>
-  <p>{{ note.name }}</p>
-  <p>Description</p>
-  <p></p>
-  <p></p>
-  <img src="" alt="">
+  <p><u><strong>{{ note.name }}</strong></u></p>
+  <img height="250px" src="{{ note.img.url }}" alt="{{ note.name }}">
+  <p>
+    <strong>Type: </strong>{{ note.type|title }}
+    <br />
+    <br />
+    <strong>Description: </strong><br />
+    <em>{{ note.description }}</em>
+  </p>
 </div>
+{% endblock %}

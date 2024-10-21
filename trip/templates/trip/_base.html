@@ -14,8 +14,8 @@
           {% if user.is_authenticated %}
             <li><a href="{% url 'trip-list' %}">My Trips</a></li>
             <li><a href="{% url 'trip-create' %}">New Trip +</a></li>
-            <li>My Notes</li>
-            <li>New Notes +</li>
+            <li><a href="{% url 'note-list' %}">My Notes</a></li>
+            <li><a href="{% url 'note-create' %}">New Notes +</a></li>
           {% endif %}
         </ul>
       </nav>

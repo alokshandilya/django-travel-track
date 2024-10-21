@@ -21,7 +21,7 @@ class Trip(models.Model):
 
 
 class Note(models.Model):
-    EXCURSIONS = (
+    EXCURSIONS = (  # choices for the type field
         ("event", "Event"),
         ("dining", "Dining"),
         ("experience", "Experience"),

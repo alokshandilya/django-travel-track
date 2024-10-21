@@ -1,7 +1,7 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, TemplateView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import CreateView, DetailView, ListView, TemplateView
 
 from .models import Note, Trip
 
@@ -36,7 +36,7 @@ class TripDetailView(DetailView):
     model = Trip
 
     # to display notes in the trip detail view
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs):  # override get_context_data method
         context = super().get_context_data(**kwargs)
         trip = context["object"]
         notes = trip.notes.all()  # because of related_name="notes" in Note
@@ -47,3 +47,31 @@ class TripDetailView(DetailView):
 
 class NoteDetailView(DetailView):
     model = Note
+
+
+class NoteListView(LoginRequiredMixin, ListView):
+    model = Note
+
+    def get_queryset(self):  # override get_queryset method
+        # only show notes that belong to the current user
+        # trip__owner (double underscore) is a lookup that follows
+        # relationships, (can use any field from the related model)
+        queryset = Note.objects.filter(trip__owner=self.request.user)
+        return queryset
+
+
+class NoteCreateView(LoginRequiredMixin, CreateView):
+    model = Note
+    success_url = reverse_lazy("note-list")
+    fields = "__all__"
+
+    # show trips that belong to the current logged in user
+    def get_form(self):  # override get_form method
+        form = super(NoteCreateView, self).get_form()  # get form from parent
+        trips = Trip.objects.filter(owner=self.request.user)
+
+        # set queryset of trip field to show trips belonging to current user
+        # it will be a dropdown list of trips
+        form.fields["trip"].queryset = trips
+
+        return form

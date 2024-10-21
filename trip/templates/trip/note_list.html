@@ -1,0 +1,27 @@
+{% extends "trip/_base.html" %}
+
+{% block title %}Note List{% endblock %}
+
+{% block content %}
+<h1>Your Notes</h1>
+{% for note in object_list %}
+<div>
+  <img height="250px" src="{{ note.img.url }}" alt="{{ note.name }}" />
+  <br />
+  <strong>{{ note.name }}</strong>
+  <a href="{% url 'note-detail' note.pk %}">details</a>
+  <br />
+  <strong>City: </strong>{{ note.trip.city }}
+  <br />
+  <em>
+    {% if note.rating %}
+    <strong>Rating: </strong>{{ note.rating }}
+    {% else %}
+    <strong>Rating: </strong>TBA
+    {% endif %}
+  </em>
+</div>
+<br />
+<br />
+{% endfor %}
+{% endblock %}
