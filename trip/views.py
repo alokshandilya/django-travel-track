@@ -1,7 +1,14 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, ListView, TemplateView
+from django.views.generic import (
+    CreateView,
+    DeleteView,
+    DetailView,
+    ListView,
+    TemplateView,
+    UpdateView,
+)
 
 from .models import Note, Trip
 
@@ -75,3 +82,25 @@ class NoteCreateView(LoginRequiredMixin, CreateView):
         form.fields["trip"].queryset = trips
 
         return form
+
+
+# mostly the same as NoteCreateView
+class NoteUpdateView(LoginRequiredMixin, UpdateView):
+    model = Note
+    success_url = reverse_lazy("note-list")
+    fields = "__all__"
+    # uses same template as NoteCreateView, note_form.html
+    # add button to the form to update the note
+
+    def get_form(self):
+        form = super(NoteUpdateView, self).get_form()
+        trips = Trip.objects.filter(owner=self.request.user)
+        form.fields["trip"].queryset = trips
+
+        return form
+
+
+class NoteDeleteView(LoginRequiredMixin, DeleteView):
+    model = Note
+    success_url = reverse_lazy("note-list")
+    # no template needed - send a post request to this url

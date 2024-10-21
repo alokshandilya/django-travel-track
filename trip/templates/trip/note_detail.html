@@ -6,6 +6,10 @@
 <h1>Note Details</h1>
 <div>
   <p><u><strong>{{ note.name }}</strong></u></p>
+  <a href={% url 'note-update' note.id %}>Edit Note</a><br />
+  <a href={% url 'note-delete' note.id %}>Delete Note</a>
+  <br />
+  <br />
   <img height="250px" src="{{ note.img.url }}" alt="{{ note.name }}">
   <p>
     <strong>Type: </strong>{{ note.type|title }}
